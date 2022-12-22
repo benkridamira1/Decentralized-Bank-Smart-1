@@ -16,4 +16,15 @@ contract DefiBank {
         usdc = _usdc;
         ausd = _ausd;
     }
+
+    function depositToken(uint _amount ) public {
+        IERC20(usdc).transferFrom(msg.sender, address(this), _amount);
+        depositBalance[msg.sender] +=  _amount;
+
+        if(!hasDeposited[msg.sender]) {
+            stakers.push(msg.sender);
+        }
+
+        hasDeposited[msg.sender] = true;
+    }
 }
