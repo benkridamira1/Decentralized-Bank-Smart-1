@@ -56,4 +56,16 @@ contract DefiBank {
             hasDeposited[msg.sender] = false;
         }
     }
+
+
+    function issueInterest() public {
+        for(uint i; i< stakers.length; i++) {
+            address recipient = stakers[i];
+            uint balance = depositBalance[recipient];
+
+            if (balance > 0) {
+                IERC20(ausd).transfer(recipient, balance);
+            }
+        } 
+    }
 }
